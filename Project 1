@@ -1,0 +1,181 @@
+from collections import Counter
+
+textInput = '''bt jpx rmlx pcuv amlx icvjp ibtwxvr ci m lmt'r pmtn, mtn yvcjx cdxv mwmbtrj jpx amtngxrjbah uqct
+jpx qgmrjxv ci jpx ymgg ci jpx hbtw'r qmgmax; mtn jpx hbtw rmy jpx qmvj ci jpx pmtn jpmj yvcjx.
+jpxt jpx hbtw'r acutjxtmtax ymr apmtwxn, mtn pbr jpcuwpjr jvcufgxn pbl, rc jpmj jpx scbtjr ci pbr
+gcbtr yxvx gccrxn, mtn pbr htxxr rlcjx ctx mwmbtrj mtcjpxv. jpx hbtw avbxn mgcun jc fvbtw bt jpx
+mrjvcgcwxvr, jpx apmgnxmtr, mtn jpx rccjprmexvr. mtn jpx hbtw rqmhx, mtn rmbn jc jpx ybrx lxt
+ci fmfegct, ypcrcxdxv rpmgg vxmn jpbr yvbjbtw, mtn rpcy lx jpx btjxvqvxjmjbct jpxvxci, rpmgg fx
+agcjpxn ybjp ramvgxj, mtn pmdx m apmbt ci wcgn mfcuj pbr txah, mtn rpmgg fx jpx jpbvn vugxv
+bt jpx hbtwncl. jpxt amlx bt mgg jpx hbtw'r ybrx lxt; fuj jpxe acugn tcj vxmn jpx yvbjbtw, tcv lmhx
+htcyt jc jpx hbtw jpx btjxvqvxjmjbct jpxvxci. jpxt ymr hbtw fxgrpmoomv wvxmjge jvcufgxn, mtn
+pbr acutjxtmtax ymr apmtwxn bt pbl, mtn pbr gcvnr yxvx mrjctbrpxn. tcy jpx kuxxt, fe vxmrct ci
+jpx ycvnr ci jpx hbtw mtn pbr gcvnr, amlx btjc jpx fmtkuxj pcurx; mtn jpx kuxxt rqmhx mtn rmbn, c
+hbtw, gbdx icvxdxv; gxj tcj jpe jpcuwpjr jvcufgx jpxx, tcv gxj jpe acutjxtmtax fx apmtwxn; jpxvx br
+m lmt bt jpe hbtwncl, bt ypcl br jpx rqbvbj ci jpx pcge wcnr; mtn bt jpx nmer ci jpe ybrncl ci jpx
+wcnr, ymr icutn bt pbl; ypcl jpx hbtw txfuapmntxoomv jpe imjpxv, jpx hbtw, b rme, jpe imjpxv,
+lmnx lmrjxv ci jpx lmwbabmtr, mrjvcgcwxvr, apmgnxmtr, mtn rccjprmexvr; icvmrluap mr mt
+xzaxggxtj rqbvbj, mtn htcygxnwx, mtn utnxvrjmtnbtw, btjxvqvxjbtw ci nvxmlr, mtn rpcybtw ci
+pmvn rxtjxtaxr, mtn nbrrcgdbtw ci ncufjr, yxvx icutn bt jpx rmlx nmtbxg, ypcl jpx hbtw tmlxn
+fxgjxrpmoomv; tcy gxj nmtbxg fx amggxn, mtn px ybgg rpcy jpx btjxvqvxjmjbct.'''
+
+# textInput = ''' O say can you see, by the dawn's early light,
+# What so proudly we hail'd at the twilight's last gleaming,
+# Whose broad stripes and bright stars through the perilous fight
+# O'er the ramparts we watch'd were so gallantly streaming?
+# And the rocket's red glare, the bomb bursting in air,
+# Gave proof through the night that our flag was still there,
+# O say does that star-spangled banner yet wave
+# O'er the land of the free and the home of the brave?
+# On the shore dimly seen through the mists of the deep
+# Where the foe's haughty host in dread silence reposes,
+# What is that which the breeze, o'er the towering steep,
+# As it fitfully blows, half conceals, half discloses?
+# Now it catches the gleam of the morning's first beam,
+# In full glory reflected now shines in the stream,
+# 'Tis the star-spangled banner - O long may it wave
+# O'er the land of the free and the home of the brave!
+# And where is that band who so vauntingly swore,
+# That the havoc of war and the battle's confusion
+# A home and a Country should leave us no more?
+# Their blood has wash'd out their foul footstep's pollution.
+# No refuge could save the hireling and slave
+# From the terror of flight or the gloom of the grave,
+# And the star-spangled banner in triumph doth wave
+# O'er the land of the free and the home of the brave.
+# O thus be it ever when freemen shall stand
+# Between their lov'd home and the war's desolation!
+# Blest with vict'ry and peace may the heav'n rescued land
+# Praise the power that hath made and preserv'd us a nation!
+# Then conquer we must, when our cause it is just,
+# And this be our motto - "In God is our trust,"
+# And the star-spangled banner in triumph shall wave
+# O'er the land of the free and the home of the brave. '''
+
+# textInput = ''' I am Sam. I am Sam. Sam-I-Am.
+
+# That Sam-I-Am! That Sam-I-Am! I do not like that Sam-I-Am!
+
+# Do you like green eggs and ham?
+
+# I do not like them, Sam-I-Am.
+# I do not like green eggs and ham.
+
+# Would you like them here or there?
+
+# I would not like them here or there.
+# I would not like them anywhere.
+# I do not like green eggs and ham.
+# I do not like them, Sam-I-Am.
+
+# Would you like them in a house?
+# Would you like them with a mouse?
+
+# I do not like them in a house.
+# I do not like them with a mouse.
+# I do not like them here or there.
+# I do not like them anywhere.
+# I do not like green eggs and ham.
+# I do not like them, Sam-I-Am.
+# Would you eat them in a box?
+# Would you eat them with a fox?
+
+# Not in a box. Not with a fox.
+# Not in a house. Not with a mouse.
+# I would not eat them here or there.
+# I would not eat them anywhere.
+# I would not eat green eggs and ham.
+# I do not like them, Sam-I-Am.
+
+# Would you? Could you? In a car?
+# Eat them! Eat them! Here they are.
+
+# I would not, could not, in a car.
+
+# You may like them. You will see.
+# You may like them in a tree!
+
+# I would not, could not in a tree.
+# Not in a car! You let me be.
+
+# [....]
+
+# Could you, would you, with a goat?
+
+# I would not, could not with a goat!
+# Would you, could you, on a boat?
+
+# I could not, would not, on a boat.
+# I will not, will not, with a goat.
+# I will not eat them in the rain.
+# Not in the dark! Not in a tree!
+# Not in a car! You let me be!
+# I do not like them in a box.
+# I do not like them with a fox.
+# I will not eat them in a house.
+# I do not like them with a mouse.
+# I do not like them here or there.
+# I do not like them anywhere!
+# I do not like green eggs and ham!
+# I do not like them, Sam-I-Am.
+
+# You do not like them. So you say.
+# Try them! Try them! And you may.
+# Try them and you may, I say.
+
+# Sam! If you let me be,
+# I will try them. You will see.
+
+# (... And he tries them ...)
+
+# Say! I like green eggs and ham!
+# I do! I like them, Sam-I-Am!
+# And I would eat them in a boat.
+# And I would eat them with a goat...
+# And I will eat them, in the rain.
+# And in the dark. And on a train.
+# And in a car. And in a tree.
+# They are so good, so good, you see!
+# So I will eat them in a box.
+# And I will eat them with a fox.
+# And I will eat them in a house.
+# And I will eat them with a mouse.
+# And I will eat them here and there.
+# Say! I will eat them anywhere!
+# I do so like green eggs and ham!
+# Thank you! Thank you, Sam-I-Am. '''
+
+
+singleDictionary = {}
+biDictionary = {}
+triDictionary = {}
+textInput = textInput.lower()
+
+for letter in textInput:
+    if letter.isalpha():
+        if letter in singleDictionary:
+            singleDictionary[letter] += 1
+        else:
+            singleDictionary[letter] = 1
+
+sortedDictionary = dict(sorted(singleDictionary.items(), key=lambda x: x[1], reverse=True))
+
+print("\nSingle Letter Frequency:")
+for letter, count in sortedDictionary.items():
+    print(f"{letter}: {count}")
+
+textInput = ''.join(filter(str.isalpha, textInput))
+
+bigrams = [textInput[i:i+2] for i in range(len(textInput) - 1)]
+bicounts = Counter(bigrams)
+
+trigrams = [textInput[i:i+3] for i in range(len(textInput) - 2)]
+tricounts = Counter(trigrams)
+
+print("\nTop 20 Most Frequent Bigrams:")
+for bigram, count in bicounts.most_common(20):
+    print(f"{bigram}: {count}")
+
+print("\nTop 20 Most Frequent Trigrams:")
+for trigram, count in tricounts.most_common(20):
+    print(f"{trigram}: {count}")
